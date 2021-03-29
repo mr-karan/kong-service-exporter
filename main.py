@@ -6,17 +6,6 @@ from datetime import datetime
 import yaml
 from jinja2 import Template
 
-logger = logging.getLogger("kong_svc_reg_exporter")
-logger.setLevel(logging.DEBUG)
-# create console handler with a higher log level
-ch = logging.StreamHandler()
-ch.setLevel(logging.DEBUG)
-# create formatter and add it to the handlers
-formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-ch.setFormatter(formatter)
-# add the handlers to the logger
-logger.addHandler(ch)
-
 TEMPLATE_FILE = "template.md"
 
 
@@ -90,13 +79,12 @@ def render_template(data, tmpl, output):
             }
         )
 
-    html = tmpl.render(
+    md = tmpl.render(
         updated_at=datetime.now().strftime("%Y-%m-%d %H:%M:%S"), services=services
     )
-
     # save to disk.
     with open(f"{output}", "w", encoding="utf-8") as f:
-        f.write(html)
+        f.write(md)
 
 
 def main():
@@ -121,8 +109,7 @@ def main():
     try:
         data = read_config(args.config)
     except Exception as e:
-        logger.exception(e)
-        sys.exit(-1)
+        sys.exit(e)
 
     tmpl = load_template(TEMPLATE_FILE)
     render_template(data, tmpl, args.output)
