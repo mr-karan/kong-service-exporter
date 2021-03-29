@@ -1,6 +1,6 @@
 # Kong Service Registry
 
-Last updated at {{updated_at}}.
+_Last updated at **{{updated_at}}**._
 
 
 | Name | Route  | Upstream  | ACL Group  |
