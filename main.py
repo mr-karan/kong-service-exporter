@@ -80,7 +80,8 @@ def render_template(data, tmpl, output):
         )
 
     md = tmpl.render(
-        updated_at=datetime.now().strftime("%Y-%m-%d %H:%M:%S"), services=services
+        updated_at=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        services=sorted(services, key=lambda i: i["name"]),
     )
     # save to disk.
     with open(f"{output}", "w", encoding="utf-8") as f:
