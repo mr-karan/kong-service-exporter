@@ -1,3 +1,5 @@
+<a href="https://zerodha.tech"><img src="https://zerodha.tech/static/images/github-badge.svg" align="right" /></a>
+
 # Kong Service Registry Exporter
 
 This is a small utility to export a Markdown file containing the list of services and other useful information from Kong's config.
@@ -25,4 +27,4 @@ $ python3 main.py --config=config.yml --output=kong-service-registry.md
 
 ### Sample File
 
-You can see the [generated](./service_registry.md) Markdown file from the [sample](./config-sample.yml) config file.
+You can see the [generated](./kong_service_exporter/example/service_registry_sample.md) Markdown file from the [sample](./kong_service_exporter/example/config-sample.yml) config file.

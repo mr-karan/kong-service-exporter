@@ -41,6 +41,7 @@ consumers:
   - key: myapp_key
   acls:
   - group: mysvc-consumers
+  - group: anothersvc-consumers
 plugins:
 - name: prometheus
   enabled: true

@@ -1,5 +1,4 @@
 import argparse
-import logging
 import sys
 from datetime import datetime
 
@@ -62,6 +61,18 @@ def get_acls(plugins):
             return "`" + "`, `".join(a for a in i.get("config").get("allow")) + "`"
 
 
+def get_consumer_groups(acls):
+    """
+    Given a list of plugins, filter out the `acl` plugin
+    and return a formatted string
+    of all the acl consumer group names which are `allowed`
+    to access the service.
+    """
+    if acls is None:
+        return
+    return "`" + "`, `".join(i.get("group") for i in acls) + "`"
+
+
 def render_template(data, tmpl, output):
     """
     Given the Kong config (`data`), and the template file object
@@ -79,12 +90,22 @@ def render_template(data, tmpl, output):
             }
         )
 
+    consumers = []
+    for i in data["consumers"]:
+        consumers.append(
+            {
+                "name": i.get("username"),
+                "groups": get_consumer_groups(i.get("acls")),
+            }
+        )
+
     md = tmpl.render(
         updated_at=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         services=sorted(services, key=lambda i: i["name"]),
+        consumers=sorted(consumers, key=lambda i: i["name"]),
     )
     # save to disk.
-    with open(f"{output}", "w", encoding="utf-8") as f:
+    with open(output, "w", encoding="utf-8") as f:
         f.write(md)
 
 
