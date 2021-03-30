@@ -12,7 +12,7 @@ def requirements():
 
 setup(
     name="kong-service-exporter",
-    version="0.1.0",
+    version="0.1.1",
     description="A small utility to export a Markdown file containing the list of services and other useful information from Kong's config.",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -26,7 +26,7 @@ setup(
     license="MIT License",
     entry_points={
         'console_scripts': [
-            'kong_service_exporter = kong_service_exporter:main'
+            'kong-service-exporter = kong_service_exporter.generate:main'
         ],
     },
     classifiers=[
